@@ -1,0 +1,19 @@
+fastapi
+uvicorn
+curl_cffi>=0.7.0
+beautifulsoup4
+lxml
+
+fastapi
+uvicorn[standard]
+beautifulsoup4
+lxml
+pydantic
+python-multipart
+
+# Selenium for JavaScript rendering
+selenium==4.16.0
+webdriver-manager==4.0.1
+
+# Fallback for non-Crunchyroll sites
+curl-cffi
