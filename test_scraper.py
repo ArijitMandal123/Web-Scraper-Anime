@@ -6,7 +6,7 @@ from main import scrape_data, ScrapeRequest
 
 def main():
     # 2. Prepare the test request (The URL you want to scrape)
-    test_url = "https://screenrant.com/log-horizon-best-isekai-anime-worldbuilding/"
+    test_url = "https://dotesports.com/indies/news/mina-the-hollower-release-date-countdown-shovel-knight"
     print(f"\n--- Testing Scraper with URL: {test_url} ---")
     print("Scraping data...")
     

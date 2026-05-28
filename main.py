@@ -13,6 +13,11 @@ from scrapers.animecorner import parse_animecorner
 from scrapers.inasianspaces import parse_inasianspaces
 from scrapers.crowsworldofanime import parse_crowsworldofanime
 from scrapers.cbr import parse_cbr
+from scrapers.polygon import parse_polygon
+from scrapers.fextralife import parse_fextralife
+from scrapers.kotaku import parse_kotaku
+from scrapers.rockpapershotgun import parse_rockpapershotgun
+from scrapers.dotesports import parse_dotesports
 
 app = FastAPI()
 security = HTTPBasic()
@@ -175,6 +180,16 @@ def scrape_data(request: ScrapeRequest):
             parsed_data = parse_inasianspaces(soup, request.url)
         elif "crowsworldofanime.com" in request.url:
             parsed_data = parse_crowsworldofanime(soup, request.url)
+        elif "polygon.com" in request.url:
+            parsed_data = parse_polygon(soup, request.url)
+        elif "fextralife.com" in request.url:
+            parsed_data = parse_fextralife(soup, request.url)
+        elif "kotaku.com" in request.url:
+            parsed_data = parse_kotaku(soup, request.url)
+        elif "rockpapershotgun.com" in request.url:
+            parsed_data = parse_rockpapershotgun(soup, request.url)
+        elif "dotesports.com" in request.url:
+            parsed_data = parse_dotesports(soup, request.url)
         
         # Merge
         final_desc = parsed_data.get("description") if parsed_data.get("description") else meta_data["description"]
@@ -186,8 +201,8 @@ def scrape_data(request: ScrapeRequest):
             final_image = urljoin(request.url, final_image)
 
         # --- IMAGE EXTRACTION ---
-        # For ScreenRant, CBR, InAsianSpaces, AnimeCorner, and CrowsWorldOfAnime, use the detailed side_images
-        if ("screenrant.com" in request.url or "cbr.com" in request.url or "inasianspaces.com" in request.url or "animecorner.me" in request.url or "crowsworldofanime.com" in request.url) and 'side_images' in parsed_data:
+        # For ScreenRant, CBR, InAsianSpaces, AnimeCorner, CrowsWorldOfAnime, Polygon, Fextralife, Kotaku, RockPaperShotgun, and DotEsports, use the detailed side_images
+        if ("screenrant.com" in request.url or "cbr.com" in request.url or "inasianspaces.com" in request.url or "animecorner.me" in request.url or "crowsworldofanime.com" in request.url or "polygon.com" in request.url or "fextralife.com" in request.url or "kotaku.com" in request.url or "rockpapershotgun.com" in request.url or "dotesports.com" in request.url) and 'side_images' in parsed_data:
             side_images_data = parsed_data['side_images']
         else:
             # Original image extraction for other sites
@@ -247,8 +262,8 @@ def scrape_data(request: ScrapeRequest):
             "url": request.url
         }
         
-        # Add HTML content if ScreenRant, CBR, InAsianSpaces, AnimeCorner, or CrowsWorldOfAnime
-        if ("screenrant.com" in request.url or "cbr.com" in request.url or "inasianspaces.com" in request.url or "animecorner.me" in request.url or "crowsworldofanime.com" in request.url) and 'html_content' in parsed_data:
+        # Add HTML content if ScreenRant, CBR, InAsianSpaces, AnimeCorner, CrowsWorldOfAnime, Polygon, Fextralife, Kotaku, RockPaperShotgun, or DotEsports
+        if ("screenrant.com" in request.url or "cbr.com" in request.url or "inasianspaces.com" in request.url or "animecorner.me" in request.url or "crowsworldofanime.com" in request.url or "polygon.com" in request.url or "fextralife.com" in request.url or "kotaku.com" in request.url or "rockpapershotgun.com" in request.url or "dotesports.com" in request.url) and 'html_content' in parsed_data:
             response_data['html_content'] = parsed_data['html_content']
 
         return {
