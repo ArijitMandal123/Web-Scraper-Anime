@@ -6,7 +6,7 @@ from main import scrape_data, ScrapeRequest
 
 def main():
     # 2. Prepare the test request (The URL you want to scrape)
-    test_url = "https://dotesports.com/indies/news/mina-the-hollower-release-date-countdown-shovel-knight"
+    test_url = "https://dotesports.com/persona/news/persona-6-leaked-concept-art-protagonist"
     print(f"\n--- Testing Scraper with URL: {test_url} ---")
     print("Scraping data...")
     
@@ -20,10 +20,10 @@ def main():
     if response.get("status") == "success":
         data = response["data"]
         print("\n--- SCRAPE SUCCESSFUL ---")
-        print(json.dumps(response, indent=2, ensure_ascii=False))
+        print(json.dumps(response, indent=2))
     else:
         print("\n--- SCRAPE FAILED ---")
-        print(json.dumps(response, indent=2, ensure_ascii=False))
+        print(json.dumps(response, indent=2))
 
     print(f"\nFull JSON output is also saved to {os.path.abspath(output_path)}")
 
